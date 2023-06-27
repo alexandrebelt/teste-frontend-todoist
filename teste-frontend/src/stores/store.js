@@ -7,8 +7,8 @@ export const useChecklistStore = defineStore({
         checklist: JSON.parse(localStorage.getItem('tasks')) || [],
     }),
 
-    getters:{
-        getItens(){
+    getters: {
+        getItens() {
             return this.checklist;
         }
     },
@@ -20,20 +20,23 @@ export const useChecklistStore = defineStore({
         },
 
         deleteItem(item) {
-            const task  = this.checklist.indexOf(item)
+            const task = this.checklist.indexOf(item)
             this.checklist.splice(task, 1)
             localStorage.setItem("tasks", JSON.stringify(this.checklist))
         },
-        editItem(item){
-            const task = thie.checklist.find((task) => task.id === id)
-            Object.assign(task,)
+
+        editItem(editedItem) {
+            const index = this.checklist.findIndex(item => item.id === editedItem.id)
+            console.log(index)
+            this.checklist[index] = editedItem
+            localStorage.setItem("tasks", JSON.stringify(this.checklist))
         }
     },
 
     watch: {
-       checklist(){
-        localStorage.setItem('tasks', JSON.stringify(this.checklist))
-       }
+        checklist() {
+            localStorage.setItem('tasks', JSON.stringify(this.checklist))
+        }
     }
 
 })
